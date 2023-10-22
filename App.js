@@ -1,16 +1,16 @@
-import React, {useState} from 'react';
-import {ScrollView, StyleSheet, Text, View, FlatList, TouchableOpacity} from 'react-native';
-import {Element3} from 'iconsax-react-native';
-import {BlogList, CategoryList} from './data';
+import React, { useState } from 'react';
+import { ScrollView, StyleSheet, Text, View, FlatList, TouchableOpacity } from 'react-native';
+import { Element3 } from 'iconsax-react-native';
+import { BlogList, CategoryList } from './data';
 import { fontType, colors } from './src/assets/theme';
 import { ListHorizontal, ItemSmall } from './src/components';
 
 
-const ItemCategory = ({item, onPress, color}) => {
+const ItemCategory = ({ item, onPress, color }) => {
   return (
     <TouchableOpacity onPress={onPress}>
       <View style={category.item}>
-        <Text style={{...category.title, color}}>{item.categoryName}</Text>
+        <Text style={{ ...category.title, color }}>{item.categoryName}</Text>
       </View>
     </TouchableOpacity>
   );
@@ -18,7 +18,7 @@ const ItemCategory = ({item, onPress, color}) => {
 
 const FlatListCategory = () => {
   const [selected, setSelected] = useState(1);
-  const renderItem = ({item}) => {
+  const renderItem = ({ item }) => {
     const color = item.id === selected ? colors.white() : colors.grey();
     return (
       <ItemCategory
@@ -32,9 +32,9 @@ const FlatListCategory = () => {
     <FlatList
       data={CategoryList}
       keyExtractor={item => item.id}
-      renderItem={item => renderItem({...item})}
-      ItemSeparatorComponent={() => <View style={{width: 10}} />}
-      contentContainerStyle={{paddingHorizontal: 24}}
+      renderItem={item => renderItem({ ...item })}
+      ItemSeparatorComponent={() => <View style={{ width: 10 }} />}
+      contentContainerStyle={{ paddingHorizontal: 24 }}
       horizontal
       showsHorizontalScrollIndicator={false}
     />
@@ -66,10 +66,10 @@ const styles = StyleSheet.create({
     justifyContent: 'space-between',
     flexDirection: 'row',
     alignItems: 'center',
-    height:52,
+    height: 52,
     elevation: 8,
-    paddingTop:8,
-    paddingBottom:4
+    paddingTop: 8,
+    paddingBottom: 4
   },
   title: {
     fontSize: 20,
