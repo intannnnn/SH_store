@@ -50,7 +50,7 @@ const Discover = () => {
         <Text style={recent.text}>Recent Search</Text>
         <FlatListRecent />
       </View>
-      <ScrollView showsVerticalScrollIndicator={false}>
+      <ScrollView  showsVerticalScrollIndicator={false}>
         <View style={styles.listCard}>
           {recentBlog.map((item, index) => (
             <ItemSmall item={item} key={index} />
@@ -63,9 +63,11 @@ const Discover = () => {
 export default Discover;
 const styles = StyleSheet.create({
   listCard: {
-    paddingHorizontal: 24,
-    paddingBottom: 10,
-    gap: 10,
+    gap: 14,
+    flexWrap:'wrap',
+    flexDirection:'row',
+    justifyContent:'center'
+    
   },
   container: {
     flex: 1,
