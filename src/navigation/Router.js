@@ -41,10 +41,10 @@ function MainApp() {
         }}
       />
       <Tab.Screen
-        name="Discover"
+        name="Collection"
         component={Discover}
         options={{
-          tabBarLabel: 'Discover',
+          tabBarLabel: 'Collection',
           tabBarIcon: ({focused, color}) => (
             <LocationDiscover
               color={color}
@@ -56,10 +56,10 @@ function MainApp() {
         }}
       />
       <Tab.Screen
-        name="Bookmark"
+        name="List"
         component={Bookmark}
         options={{
-          tabBarLabel: 'Bookmark',
+          tabBarLabel: 'List',
           tabBarIcon: ({focused, color}) => (
             <Receipt21
               color={color}

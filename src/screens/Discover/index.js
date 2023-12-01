@@ -1,5 +1,5 @@
-import {StyleSheet, Text, View, ScrollView, FlatList} from 'react-native';
-import React from 'react';
+import {StyleSheet, Text, View, ScrollView, FlatList, Animated} from 'react-native';
+import React, {useRef} from 'react';
 import {BlogList} from '../../../data';
 import {ItemSmall} from '../../components'; 
 import {SearchNormal1} from 'iconsax-react-native';
@@ -38,7 +38,14 @@ const FlatListRecent = () => {
 };
 const Discover = () => {
   const recentBlog = BlogList.slice(5);
-  return (
+  const scrollY = useRef(new Animated.Value(0)).current;
+  const diffClampY = Animated.diffClamp(scrollY, 0, 142);
+  const recentY = diffClampY.interpolate({
+    inputRange: [0, 142],
+    outputRange: [0, -142],
+    extrapolate: 'clamp',
+  });
+  return ( 
     <View style={styles.container}>
       <View style={styles.header}>
         <View style={styles.bar}>
@@ -46,18 +53,22 @@ const Discover = () => {
           <Text style={styles.placeholder}>Search</Text>
         </View>
       </View>
-      <View>
+      <Animated.View style={[recent.container, {transform: [{translateY: recentY}]}]}>
         <Text style={recent.text}>Recent Search</Text>
         <FlatListRecent />
-      </View>
-      <ScrollView  showsVerticalScrollIndicator={false}>
-        <View style={styles.listCard}>
-          {recentBlog.map((item, index) => (
+      <Animated.ScrollView
+        showsVerticalScrollIndicator={false}
+        onScroll={Animated.event( [{nativeEvent: {contentOffset: {y: scrollY}}}],{useNativeDriver: true},
+        )}
+        contentContainerStyle={{paddingTop: 142}}>
+         <View style={styles.listCard}>
+        {recentBlog.map((item, index) => (
             <ItemSmall item={item} key={index} />
-          ))}
+        ))}
         </View>
-      </ScrollView>
-    </View>
+        </Animated.ScrollView>
+      </Animated.View>
+      </View>
   );
 };
 export default Discover;
@@ -73,15 +84,19 @@ const styles = StyleSheet.create({
     flex: 1,
     backgroundColor: colors.grey(),
   },
-header: {
+  header: {
     paddingHorizontal: 24,
-    gap: 30,
     flexDirection: 'row',
     alignItems: 'center',
     height: 52,
-    elevation: 8,
     paddingTop: 8,
     paddingBottom: 4,
+    position: 'absolute',
+    top: 0,
+    zIndex: 1000,
+    right: 0,
+    left: 0,
+    backgroundColor: colors.white(),
   },
   bar: {
     flexDirection: 'row',
@@ -119,5 +134,14 @@ const recent = StyleSheet.create({
     color: colors.black(),
     paddingVertical: 5,
     paddingHorizontal: 24,
+  },
+  container:{
+    position: 'absolute',
+    backgroundColor: colors.white(),
+    zIndex: 999,
+    top: 52,
+    left: 0,
+    right: 0,
+    elevation: 1000,
   },
 });
