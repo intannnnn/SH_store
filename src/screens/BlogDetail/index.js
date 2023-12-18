@@ -5,6 +5,7 @@ import { useNavigation } from '@react-navigation/native';
 import { BlogList } from '../../../data';
 import FastImage from 'react-native-fast-image';
 import { fontType, colors } from '../../assets/theme';
+
 const formatNumber = number => {
   if (number >= 1000000000) {
     return (number / 1000000000).toFixed(1).replace(/\.0$/, '') + 'B';
@@ -17,6 +18,7 @@ const formatNumber = number => {
   }
   return number.toString();
 };
+
 const BlogDetail = ({ route }) => {
   const scrollY = useRef(new Animated.Value(0)).current;
   const diffClampY = Animated.diffClamp(scrollY, 0, 52);
